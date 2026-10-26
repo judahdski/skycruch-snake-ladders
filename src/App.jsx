@@ -5,7 +5,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPosition, setCurrentPosition] = useState(0);
 
   return (
     <>
@@ -18,13 +18,20 @@ function App() {
         <div>
           <h1>Snakes & Ladders</h1>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Current position: {count}
-        </button>
+
+        <form action="" onSubmit={(event) => {
+          event.preventDefault();
+
+          console.log('event :>> ', event);
+
+          const moveStep = event.target.querySelector('#movementStep').value;
+
+          setCurrentPosition((prev) => prev + Number(moveStep));
+        }}>
+          <input type="number" name="movementStep" id="movementStep" min={1} max={6} />
+
+          <button type="submit" className="counter">Current position : {currentPosition}</button>
+        </form>
       </section>
     </>
   )
