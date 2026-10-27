@@ -1,0 +1,36 @@
+/* Scope positioning to boards that mount this optional visual layer. */
+.block-wrapper:has(> .board-overlay) {
+  position: relative;
+  isolation: isolate;
+}
+
+.board-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+}
+
+.board-overlay__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1024px;
+  height: 1536px;
+  max-width: none;
+  transform-origin: 0 0;
+  opacity: 0.8;
+}
+
+.board-overlay__number {
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 0 1px #fff, 0 0 2px #fff;
+}
+
+.board-overlay__number--highlighted {
+  text-shadow: none;
+}

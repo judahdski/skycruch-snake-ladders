@@ -5,6 +5,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 import { gameStates, positionDisplay, sourceDestPairs } from './rules'
 import Block from './Block'
+import BoardOverlay from './BoardOverlay'
 
 function App() {
   const [currentPosition, setCurrentPosition] = useState(1);
@@ -28,6 +29,7 @@ function App() {
 
             return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
           }))}
+          <BoardOverlay currentPosition={currentPosition} />
         </div>
 
         <div>
