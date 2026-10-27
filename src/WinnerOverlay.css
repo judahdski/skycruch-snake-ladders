@@ -1,0 +1,18 @@
+.winner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+  user-select: none;
+}
+
+.winner-overlay__badge {
+  display: block;
+  width: 75%;
+  height: auto;
+}
