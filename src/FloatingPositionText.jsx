@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { sourceDestPairs } from './contracts'
 import { choosePlacement, createPlacementPlan } from './floatingTextLayout'
 import './FloatingPositionText.css'
+import './FloatingPositionTextAppearance.css'
 
 const transitionSquares = new Set(sourceDestPairs.flat())
 

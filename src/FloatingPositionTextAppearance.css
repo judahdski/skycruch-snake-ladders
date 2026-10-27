@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Floating Baloo 2';
+  src: url('./assets/floating-text-baloo2-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+.floating-result {
+  container-type: inline-size;
+}
+
+.floating-result__text {
+  box-sizing: border-box;
+  /* Measured by the existing layout engine, including the transparent paint reserve.
+     A 4px stroke extends 2px; solid shadows extend at most 9px below the glyph. */
+  padding: 12px 14px;
+  font-family: 'Floating Baloo 2', 'Arial Rounded MT Bold', ui-rounded, system-ui, sans-serif;
+  font-size: 28px;
+  font-size: clamp(24px, 6cqi, 32px);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: #fff8ed;
+  -webkit-text-fill-color: #fff8ed;
+  -webkit-text-stroke: 4px #21112f;
+  paint-order: stroke fill;
+  /* Solid, finite shadows keep the complete sticker inside its measured box. */
+  text-shadow:
+    -2px 0 0 #21112f,
+    2px 0 0 #21112f,
+    0 -2px 0 #21112f,
+    0 2px 0 #21112f,
+    -1.5px -1.5px 0 #21112f,
+    1.5px -1.5px 0 #21112f,
+    -1.5px 1.5px 0 #21112f,
+    1.5px 1.5px 0 #21112f,
+    -4px 0 0 #b46cf2,
+    4px 0 0 #b46cf2,
+    0 -4px 0 #b46cf2,
+    0 4px 0 #b46cf2,
+    -3px -3px 0 #b46cf2,
+    3px -3px 0 #b46cf2,
+    -3px 3px 0 #b46cf2,
+    3px 3px 0 #b46cf2,
+    0 7px 0 #7136ba;
+}

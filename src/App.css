@@ -1,6 +1,6 @@
 .counter {
   font-size: 16px;
-  padding: 6px 12px;
+  padding: 10px 12px;
   border-radius: 5px;
   color: var(--accent);
   border: 2px solid var(--accent-border);
