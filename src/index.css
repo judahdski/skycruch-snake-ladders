@@ -113,24 +113,3 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
-
-.block-wrapper {
-  width: calc(10*47px);
-  height: calc(10*47px);
-  background: #000;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap-reverse;
-}
-
-.block {
-  width: 47px;
-  aspect-ratio: 1/1;
-  background: #fff;
-  border: #c084fc;
-}
-
-.block-highlighted {
-  background: #ff4848;
-}

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <section id="center">
+      <section id="center" className='main-container'>
         <div className="block-wrapper">
           {(new Array(gridSize).fill(0).map((_, ind) => {
             const COLS = 10;
@@ -30,84 +30,87 @@ function App() {
           }))}
         </div>
 
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
         <div>
-          <h1>Snakes & Ladders</h1>
-          <p>positionDisplayText : {positionDisplayText}</p>
+          {/* dibuat meriah, ada animasi pas muncul sama beberapa asset */}
+          <p>{positionDisplayText}</p>
+
+          <div className="left-mainboard">
+            <div>
+              <h1>Snakes & Ladders</h1>
+            </div>
+
+            <div className="input-moveStep">
+              <input type="number" className='counter' min={1} max={6} value={moveInput} onChange={(e) => setMoveInput(Number(e.target.value))} />
+
+              <button type="button" className="btn counter" onClick={(event) => {
+                event.preventDefault();
+
+                const validateInput = (inputNum) => {
+                  // console.log('moveInput :>> ', moveInput);
+                  // console.log('typeof moveInput :>> ', typeof moveInput);
+                  // console.log('!Number.isInteger(inputNum) :>> ', !Number.isInteger(inputNum));
+                  // console.log('Number(inputNum) > 6 && Number(inputNum) < 1 :>> ', Number(inputNum) > 6 && Number(inputNum) < 1);
+
+                  if (!Number.isInteger(inputNum)) return false;
+                  if (Number(inputNum) > 6 && Number(inputNum) < 1) return false;
+
+                  return true;
+                }
+
+                const calculateDisplayText = (currPosition) => {
+                  console.log('currPosition :>> ', currPosition);
+
+                  const convertedText = positionDisplay.map(([divisor, output]) => {
+                    if ((currPosition % divisor) === 0) {
+                      console.log(divisor, output);
+                      console.log('currPosition :>> ', currPosition);
+                      console.log(`${currPosition} % ${divisor} :>> ${currPosition % divisor}`);
+
+                      return output;
+                    }
+
+                    return '';
+                  })
+
+                  return convertedText.join('')
+                }
+
+                const calculatedNum = (prev) => {
+                  if (validateInput(moveInput)) {
+                    let newPosition = prev + Number(moveInput);
+
+                    const matchedIndex = sourceDestPairs.findIndex((arr) => {
+                      // console.log('arr[0] === newPosition :>> ', arr[0] === newPosition);
+                      // console.log('arr :>> ', arr);
+                      return arr[0] === newPosition;
+                    }) ?? -1;
+
+                    // console.log('matchedIndex :>> ', matchedIndex);
+
+                    if (newPosition > gameStates.finalPosition) {
+                      newPosition = gameStates.finalPosition;
+                    } else if (matchedIndex >= 0) {
+                      newPosition = sourceDestPairs[matchedIndex][1];
+                    }
+
+                    const displayText = calculateDisplayText(newPosition);
+
+
+                    setPositionDisplayText(displayText);
+
+                    return newPosition;
+                  }
+                  else return -1;
+
+                }
+
+                setCurrentPosition(calculatedNum);
+              }}>Roll Dice!</button>
+            </div>
+
+            <div className="rules">ini isinya rules</div>
+          </div>
         </div>
-
-        <form action="" onSubmit={(event) => {
-          event.preventDefault();
-
-          const validateInput = (inputNum) => {
-            // console.log('moveInput :>> ', moveInput);
-            // console.log('typeof moveInput :>> ', typeof moveInput);
-            // console.log('!Number.isInteger(inputNum) :>> ', !Number.isInteger(inputNum));
-            // console.log('Number(inputNum) > 6 && Number(inputNum) < 1 :>> ', Number(inputNum) > 6 && Number(inputNum) < 1);
-
-            if (!Number.isInteger(inputNum)) return false;
-            if (Number(inputNum) > 6 && Number(inputNum) < 1) return false;
-
-            return true;
-          }
-
-          const calculateDisplayText = (currPosition) => {
-            console.log('currPosition :>> ', currPosition);
-
-            const convertedText = positionDisplay.map(([divisor, output]) => {
-              if ((currPosition % divisor) === 0) {
-                console.log(divisor, output);
-                console.log('currPosition :>> ', currPosition);
-                console.log(`${currPosition} % ${divisor} :>> ${currPosition % divisor}`);
-
-                return output;
-              }
-
-              return '';
-            })
-
-            return convertedText.join('')
-          }
-
-          const calculatedNum = (prev) => {
-            if (validateInput(moveInput)) {
-              let newPosition = prev + Number(moveInput);
-
-              const matchedIndex = sourceDestPairs.findIndex((arr) => {
-                // console.log('arr[0] === newPosition :>> ', arr[0] === newPosition);
-                // console.log('arr :>> ', arr);
-                return arr[0] === newPosition;
-              }) ?? -1;
-
-              // console.log('matchedIndex :>> ', matchedIndex);
-
-              if (newPosition > gameStates.finalPosition) {
-                newPosition = gameStates.finalPosition;
-              } else if (matchedIndex >= 0) {
-                newPosition = sourceDestPairs[matchedIndex][1];
-              }
-
-              const displayText = calculateDisplayText(newPosition);
-
-
-              setPositionDisplayText(displayText);
-
-              return newPosition;
-            }
-            else return -1;
-
-          }
-
-          setCurrentPosition(calculatedNum);
-        }}>
-          <input type="number" min={1} max={6} value={moveInput} onChange={(e) => setMoveInput(Number(e.target.value))} />
-
-          <button type="submit" className="counter">Current position : {currentPosition}</button>
-        </form>
       </section>
     </>
   )
