@@ -1,0 +1,83 @@
+.rules-list {
+  box-sizing: border-box;
+  width: 290px;
+  max-width: calc(100vw - 32px);
+  padding: 20px;
+  border: 1px solid #eaf1f7;
+  border-radius: 12px;
+  background: #f3f9ff;
+  color: #68737d;
+  text-align: left;
+  letter-spacing: normal;
+  box-shadow: 0 3px 8px rgb(31 52 73 / 8%), 0 1px 2px rgb(31 52 73 / 4%);
+}
+
+.rules-list__title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 15px;
+  color: #ca2678;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.rules-list__info {
+  flex: 0 0 13px;
+  width: 13px;
+  height: 13px;
+  background: currentColor;
+  mask: url('./assets/rules-info.svg') center / contain no-repeat;
+}
+
+.rules-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rules-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.rules-list__number {
+  display: inline-flex;
+  flex: 0 0 17px;
+  align-items: center;
+  justify-content: center;
+  height: 17px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: #f2e9f3;
+  color: #78647b;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rules-list__copy {
+  min-width: 0;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.rules-list__copy strong {
+  color: #5f6973;
+  font-weight: 700;
+}
+
+/* Retain the old placeholder markup, showing this card in its place. */
+.rules-list + .rules {
+  display: none;
+}

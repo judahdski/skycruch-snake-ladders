@@ -7,6 +7,8 @@ import { gameStates, positionDisplay, sourceDestPairs } from './rules'
 import Block from './Block'
 import BoardOverlay from './BoardOverlay'
 import WinnerOverlay from './WinnerOverlay'
+import ResetButton from './ResetButton'
+import RulesList from './RulesList'
 
 function App() {
   const [currentPosition, setCurrentPosition] = useState(1);
@@ -59,8 +61,10 @@ function App() {
 
         // console.log('matchedIndex :>> ', matchedIndex);
 
-        if (newPosition > gameStates.finalPosition) {
+        if (newPosition >= gameStates.finalPosition) {
           newPosition = gameStates.finalPosition;
+
+          setWinCount(winCount + 1);
         } else if (matchedIndex >= 0) {
           newPosition = sourceDestPairs[matchedIndex][1];
         }
@@ -81,24 +85,36 @@ function App() {
 
   const onInputChange = (e) => setMoveInput(Number(e.target.value))
 
+  const onReset = () => {
+    setCurrentPosition(gameStates.initialPosition);
+    setMoveInput(1);
+    setPositionDisplayText('');
+  };
+
   return (
     <>
       <section id="center" className='main-container'>
         <div className="block-wrapper">
-          {(new Array(gridSize).fill(0).map((_, ind) => {
-            const COLS = 10;
+          {
+            (new Array(gridSize).fill(0).map((_, ind) => {
+              const COLS = 10;
 
-            // cari tau dimana colIndex dan rowIndex
-            const rowIndex = Math.floor(ind / COLS)
-            const colIndex = ind % COLS;
+              // cari tau dimana colIndex dan rowIndex
+              const rowIndex = Math.floor(ind / COLS)
+              const colIndex = ind % COLS;
 
-            // kalo row ganjil, diputer angkanya
-            const numberr = (rowIndex % 2 === 1 ? (rowIndex * COLS) + (COLS - 1 - colIndex) : ind) + 1;
+              // kalo row ganjil, diputer angkanya
+              const numberr = (rowIndex % 2 === 1 ? (rowIndex * COLS) + (COLS - 1 - colIndex) : ind) + 1;
 
-            return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
-          }))}
+              return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
+            }))
+          }
+
           <BoardOverlay currentPosition={currentPosition} />
+
           {currentPosition === gameStates.finalPosition && <WinnerOverlay />}
+
+          <p className='win-counter'>Win counter : {winCount}</p>
         </div>
 
         <div>
@@ -106,18 +122,19 @@ function App() {
           <p>{positionDisplayText}</p>
 
           <div className="left-mainboard">
-            <p>win : {winCount}</p>
+
 
             {
-              currentPosition === 100
-                ? <p>menanggg</p>
+              currentPosition === gameStates.finalPosition
+                ? <ResetButton onReset={onReset} />
                 : <div className="input-moveStep">
                   <input type="number" className='counter' min={1} max={6} value={moveInput} onChange={onInputChange} />
 
-                  <button type="button" className="btn counter" onClick={onRoll}>Roll Dice!</button>
+                  <button type="button" className="btn counter" onClick={onRoll}>Move!</button>
                 </div>
             }
 
+            <RulesList />
             <div className="rules">ini isinya rules</div>
           </div>
         </div>

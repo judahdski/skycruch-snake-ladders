@@ -1,6 +1,8 @@
 const Block = ({ number, isHighlighted }) => {
   return (
-    <div className={`block ${isHighlighted ? 'block-highlighted' : ''}`}>{number}</div>
+    <div className={`block ${isHighlighted ? 'block-highlighted' : ''}`}>
+      <span>{number}</span>
+    </div>
   )
 }
 

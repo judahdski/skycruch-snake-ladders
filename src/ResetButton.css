@@ -1,0 +1,53 @@
+.reset-game-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.65rem 1.4rem;
+  border: 1px solid #4ade80;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #15803d, #166534);
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 4px 0 #14532d, 0 8px 20px rgb(22 101 52 / 25%);
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.reset-game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #14532d, 0 12px 24px rgb(22 101 52 / 35%);
+}
+
+.reset-game-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #14532d, 0 4px 12px rgb(22 101 52 / 20%);
+}
+
+.reset-game-button:focus-visible {
+  outline: 3px solid #4ade80;
+  outline-offset: 5px;
+}
+
+.reset-game-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 15%);
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reset-game-button {
+    transition: none;
+  }
+}
