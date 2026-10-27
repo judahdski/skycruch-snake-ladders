@@ -1,4 +1,4 @@
-import { gameStates, positionDisplay } from './rules'
+import { gameStates, positionDisplay } from './contracts'
 import './RulesList.css'
 
 const rules = [

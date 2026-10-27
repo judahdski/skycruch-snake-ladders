@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import ladderImage from './assets/ladder.png'
 import snakeImage from './assets/snake.png'
-import { sourceDestPairs } from './rules'
+import { sourceDestPairs } from './contracts'
 import { artworkAnchors, getArtworkTransform } from './boardOverlayGeometry'
 import './BoardOverlay.css'
 
