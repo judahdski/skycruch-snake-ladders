@@ -4,15 +4,32 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 import { gameStates, positionDisplay, sourceDestPairs } from './rules'
+import Block from './Block'
 
 function App() {
   const [currentPosition, setCurrentPosition] = useState(1);
   const [moveInput, setMoveInput] = useState(1);
   const [positionDisplayText, setPositionDisplayText] = useState('');
+  const [gridSize, setGridSize] = useState(100);
 
   return (
     <>
       <section id="center">
+        <div className="block-wrapper">
+          {(new Array(gridSize).fill(0).map((_, ind) => {
+            const COLS = 10;
+
+            // cari tau dimana colIndex dan rowIndex
+            const rowIndex = Math.floor(ind / COLS)
+            const colIndex = ind % COLS;
+
+            // kalo row ganjil, diputer angkanya
+            const numberr = (rowIndex % 2 === 1 ? (rowIndex * COLS) + (COLS - 1 - colIndex) : ind) + 1;
+
+            return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
+          }))}
+        </div>
+
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -65,6 +82,10 @@ function App() {
 
           const calculateDisplayText = () => {
             const convertedText = positionDisplay.map(([divisor, output]) => {
+              console.log(divisor, output);
+              console.log('currentPosition :>> ', currentPosition);
+              console.log('currentPosition % divisor :>> ', currentPosition % divisor);
+
               if ((currentPosition % divisor) == 0) return output;
 
               return '';
