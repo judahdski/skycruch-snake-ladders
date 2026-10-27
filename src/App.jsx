@@ -44,10 +44,10 @@ function App() {
           event.preventDefault();
 
           const validateInput = (inputNum) => {
-            console.log('moveInput :>> ', moveInput);
-            console.log('typeof moveInput :>> ', typeof moveInput);
-            console.log('!Number.isInteger(inputNum) :>> ', !Number.isInteger(inputNum));
-            console.log('Number(inputNum) > 6 && Number(inputNum) < 1 :>> ', Number(inputNum) > 6 && Number(inputNum) < 1);
+            // console.log('moveInput :>> ', moveInput);
+            // console.log('typeof moveInput :>> ', typeof moveInput);
+            // console.log('!Number.isInteger(inputNum) :>> ', !Number.isInteger(inputNum));
+            // console.log('Number(inputNum) > 6 && Number(inputNum) < 1 :>> ', Number(inputNum) > 6 && Number(inputNum) < 1);
 
             if (!Number.isInteger(inputNum)) return false;
             if (Number(inputNum) > 6 && Number(inputNum) < 1) return false;
@@ -55,38 +55,17 @@ function App() {
             return true;
           }
 
-          const calculatedNum = (prev) => {
-            if (validateInput(moveInput)) {
-              let newPosition = prev + Number(moveInput);
+          const calculateDisplayText = (currPosition) => {
+            console.log('currPosition :>> ', currPosition);
 
-              const matchedIndex = sourceDestPairs.findIndex((arr) => {
-                console.log('arr[0] === newPosition :>> ', arr[0] === newPosition);
-                console.log('arr :>> ', arr);
-                return arr[0] === newPosition;
-              }) ?? -1;
-
-              console.log('matchedIndex :>> ', matchedIndex);
-
-              if (newPosition > gameStates.finalPosition) {
-                newPosition = gameStates.finalPosition
-              } else if (matchedIndex >= 0) {
-                newPosition = sourceDestPairs[matchedIndex][1];
-              }
-
-              return newPosition;
-            }
-            else return -1;
-          }
-
-          setCurrentPosition(calculatedNum);
-
-          const calculateDisplayText = () => {
             const convertedText = positionDisplay.map(([divisor, output]) => {
-              console.log(divisor, output);
-              console.log('currentPosition :>> ', currentPosition);
-              console.log('currentPosition % divisor :>> ', currentPosition % divisor);
+              if ((currPosition % divisor) === 0) {
+                console.log(divisor, output);
+                console.log('currPosition :>> ', currPosition);
+                console.log(`${currPosition} % ${divisor} :>> ${currPosition % divisor}`);
 
-              if ((currentPosition % divisor) == 0) return output;
+                return output;
+              }
 
               return '';
             })
@@ -94,7 +73,36 @@ function App() {
             return convertedText.join('')
           }
 
-          setPositionDisplayText(calculateDisplayText)
+          const calculatedNum = (prev) => {
+            if (validateInput(moveInput)) {
+              let newPosition = prev + Number(moveInput);
+
+              const matchedIndex = sourceDestPairs.findIndex((arr) => {
+                // console.log('arr[0] === newPosition :>> ', arr[0] === newPosition);
+                // console.log('arr :>> ', arr);
+                return arr[0] === newPosition;
+              }) ?? -1;
+
+              // console.log('matchedIndex :>> ', matchedIndex);
+
+              if (newPosition > gameStates.finalPosition) {
+                newPosition = gameStates.finalPosition;
+              } else if (matchedIndex >= 0) {
+                newPosition = sourceDestPairs[matchedIndex][1];
+              }
+
+              const displayText = calculateDisplayText(newPosition);
+
+
+              setPositionDisplayText(displayText);
+
+              return newPosition;
+            }
+            else return -1;
+
+          }
+
+          setCurrentPosition(calculatedNum);
         }}>
           <input type="number" min={1} max={6} value={moveInput} onChange={(e) => setMoveInput(Number(e.target.value))} />
 
