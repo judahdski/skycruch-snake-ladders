@@ -2,7 +2,7 @@ const gameStates = {
     widthBoard: 10,
     heightBoard: 10,
     initialPosition: 1,
-    finalPosition: this.widthBoard * this.heightBoard,
+    finalPosition: 10 * 10,
 };
 
 const sourceDestPairs = [
