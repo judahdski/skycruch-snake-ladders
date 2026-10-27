@@ -1,5 +1,30 @@
-import { gameStates, positionDisplay } from './contracts'
-import './RulesList.css'
+const gameStates = {
+    widthBoard: 10,
+    heightBoard: 10,
+    initialPosition: 1,
+    finalPosition: 10 * 10,
+};
+
+const sourceDestPairs = [
+    [2, 38],
+    [7, 14],
+    [8, 31],
+    [15, 26],
+    [28, 84],
+    [16, 6],
+    [40, 11],
+    [62, 19],
+    [64, 60],
+    [99, 80],
+];
+
+const positionDisplay = [
+    [3, "foo"],
+    [4, "baz"],
+    [5, "bar"],
+    [7, "jazz"],
+    [9, "huzz"],
+];
 
 const rules = [
   <>Mulai di kotak <strong>{gameStates.initialPosition}</strong>. Masukkan angka bulat <strong>1–6</strong>, lalu klik <strong>Move!</strong>.</>,
@@ -18,21 +43,4 @@ const rules = [
   </>,
 ]
 
-export default function RulesList() {
-  return (
-    <section className="rules-list" aria-labelledby="rules-list-title">
-      <h2 id="rules-list-title" className="rules-list__title">
-        <span className="rules-list__info" aria-hidden="true" />
-        Rules List
-      </h2>
-      <ol className="rules-list__items" role="list">
-        {rules.map((rule, index) => (
-          <li key={index} className="rules-list__item">
-            <span className="rules-list__number" aria-hidden="true">{index + 1}</span>
-            <p className="rules-list__copy">{rule}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )
-}
+export { gameStates, sourceDestPairs, positionDisplay, rules };

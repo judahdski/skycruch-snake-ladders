@@ -1,0 +1,21 @@
+.floating-result {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.floating-result__text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  overflow-wrap: anywhere;
+  visibility: hidden;
+}
+
+/* Keep the existing result paragraph in place without displaying it twice. */
+.block-wrapper:has(> .floating-result) + div > p:first-child {
+  display: none;
+}

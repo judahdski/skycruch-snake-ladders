@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+
 import './App.css'
-import { gameStates, positionDisplay, sourceDestPairs } from './contracts'
+import './RulesList.css'
+
+import { gameStates, positionDisplay, rules, sourceDestPairs } from './contracts'
+
 import Block from './Block'
 import BoardOverlay from './BoardOverlay'
 import WinnerOverlay from './WinnerOverlay'
 import ResetButton from './ResetButton'
-import RulesList from './RulesList'
+import FloatingPositionText from './FloatingPositionText'
 
 function App() {
   const [currentPosition, setCurrentPosition] = useState(1);
@@ -92,54 +93,60 @@ function App() {
   };
 
   return (
-    <>
-      <section id="center" className='main-container'>
-        <div className="block-wrapper">
-          {
-            (new Array(gridSize).fill(0).map((_, ind) => {
-              const COLS = 10;
+    <section id="center">
+      <div className="block-wrapper">
+        {
+          (new Array(gridSize).fill(0).map((_, ind) => {
+            const COLS = 10;
 
-              // cari tau dimana colIndex dan rowIndex
-              const rowIndex = Math.floor(ind / COLS)
-              const colIndex = ind % COLS;
+            // cari tau mana yang colIndex dan rowIndex
+            const rowIndex = Math.floor(ind / COLS)
+            const colIndex = ind % COLS;
 
-              // kalo row ganjil, diputer angkanya
-              const numberr = (rowIndex % 2 === 1 ? (rowIndex * COLS) + (COLS - 1 - colIndex) : ind) + 1;
+            // kalo row ganjil, diputer urutan angkanya
+            const numberr = (rowIndex % 2 === 1 ? (rowIndex * COLS) + (COLS - 1 - colIndex) : ind) + 1;
 
-              return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
-            }))
-          }
+            return (<Block key={numberr} number={numberr} isHighlighted={numberr === currentPosition} />)
+          }))
+        }
 
-          <BoardOverlay currentPosition={currentPosition} />
+        {/* AI-generated */}
+        <BoardOverlay currentPosition={currentPosition} />
+        <FloatingPositionText text={positionDisplayText} />
+        {/* AI-generated */}
 
-          {currentPosition === gameStates.finalPosition && <WinnerOverlay />}
+        {currentPosition === gameStates.finalPosition && <WinnerOverlay />}
 
-          <p className='win-counter'>Win counter : {winCount}</p>
-        </div>
+        <p className='win-counter'>Win counter : {winCount}</p>
+      </div>
 
-        <div>
-          {/* dibuat meriah, ada animasi pas muncul sama beberapa asset */}
-          <p>{positionDisplayText}</p>
+      <div className="left-mainboard">
+        {
+          currentPosition === gameStates.finalPosition
+            ? <ResetButton onReset={onReset} />
+            : <div className="input-moveStep">
+              <input type="number" className='counter' min={1} max={6} value={moveInput} onChange={onInputChange} />
 
-          <div className="left-mainboard">
+              <button type="button" className="btn counter" onClick={onRoll}>Move!</button>
+            </div>
+        }
 
-
-            {
-              currentPosition === gameStates.finalPosition
-                ? <ResetButton onReset={onReset} />
-                : <div className="input-moveStep">
-                  <input type="number" className='counter' min={1} max={6} value={moveInput} onChange={onInputChange} />
-
-                  <button type="button" className="btn counter" onClick={onRoll}>Move!</button>
-                </div>
-            }
-
-            <RulesList />
-            <div className="rules">ini isinya rules</div>
-          </div>
-        </div>
-      </section>
-    </>
+        <section className="rules-list" aria-labelledby="rules-list-title">
+          <h2 id="rules-list-title" className="rules-list__title">
+            <span className="rules-list__info" aria-hidden="true" />
+            Rules List
+          </h2>
+          <ol className="rules-list__items" role="list">
+            {rules.map((rule, index) => (
+              <li key={index} className="rules-list__item">
+                <span className="rules-list__number" aria-hidden="true">{index + 1}</span>
+                <p className="rules-list__copy">{rule}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    </section>
   )
 }
 
